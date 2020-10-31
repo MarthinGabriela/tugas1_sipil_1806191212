@@ -15,6 +15,9 @@ import java.util.List;
 public class MainController {
 
     @Autowired
+    private PilotService pilotService;
+
+    @Autowired
     private MaskapaiService maskapaiService;
 
     @Autowired
@@ -28,7 +31,7 @@ public class MainController {
     @RequestMapping(value="/cari/pilot")
     public String seleksiPilot(
         @RequestParam(value = "idAkademi", required=false) Long idAkademi,
-        @RequestParam(value = "idMaskapai", required=false) String kodeMaskapai,
+        @RequestParam(value = "kodeMaskapai", required=false) String kodeMaskapai,
         Model model
         ) {
             List<MaskapaiModel> listMaskapai = maskapaiService.getAllMaskapai();
@@ -40,18 +43,52 @@ public class MainController {
 
             try {
                 maskapaiModel = maskapaiService.getByKodeMaskapai(kodeMaskapai);
+                akademiModel = akademiService.getByIdAkademi(idAkademi);
+
+                listPilot = pilotService.getPilotMaskapaiModelAndAkademiModel(maskapaiModel, akademiModel);
             } catch (Exception e) {
                 try {
-                    
-                } catch (Exception e) {
+                    maskapaiModel = maskapaiService.getByKodeMaskapai(kodeMaskapai);
+                    listPilot = pilotService.getPilotMaskapaiModel(maskapaiModel);
+                } catch (Exception i) {
                     try {
-                        
-                    } catch (Exception e) {
+                        akademiModel = akademiService.getByIdAkademi(idAkademi);
+                        listPilot = pilotService.getPilotAkademiModel(akademiModel);
+                    } catch (Exception a) {
                         
                     }
                 }
             }
-            return"";
+
+            model.addAttribute("listPilot", listPilot);
+            model.addAttribute("listMaskapai", listMaskapai);
+            model.addAttribute("listAkademi", listAkademi);
+            model.addAttribute("maskapaiModel", maskapaiModel);
+            model.addAttribute("akademiModel", akademiModel);
+            return "seleksi-pilot";
     }
     
+    @RequestMapping(value = "/cari/pilot/penerbangan-terbanyak")
+    public String cariTigaPilot(
+        @RequestParam (value = "kodeMaskapai", required=false) String kodeMaskapai,
+        Model model
+    ) {
+        List<MaskapaiModel> listMaskapai = maskapaiService.getAllMaskapai();
+
+        List<PilotModel> listPilot = null;
+        MaskapaiModel maskapaiModel =new MaskapaiModel();
+
+        try {
+            maskapaiModel = maskapaiService.getByKodeMaskapai(kodeMaskapai);
+            listPilot = pilotService.get3Pilots(maskapaiModel);
+        } catch (Exception e) {
+            
+        }
+
+        model.addAttribute("listPilot", listPilot);
+        model.addAttribute("listMaskapai", listMaskapai);
+        model.addAttribute("maskapaiModel", maskapaiModel);
+
+        return "topTigaPilot";
+    }
 }

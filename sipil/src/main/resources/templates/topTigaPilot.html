@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Pilot</title>
+    <title>Daftar Pilot Terbaik</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -17,7 +17,7 @@
     <br>
     <br>
     <div class = container>
-        <form th:action ="@{/cari/pilot}" class="form-group-inline" method="GET">
+        <form th:action ="@{/cari/pilot/penerbangan-terbanyak}" class="form-group-inline" method="GET">
             <div class ="row justify-content-center">
                 <div class="col-5">
                     <label><b>Pilih Kode Maskapai :</b></label>
@@ -28,19 +28,12 @@
                                 th:selected="${maskapaiModel.kodeMaskapai == maskapai.kodeMaskapai}"
                                 th:text="${maskapai.kodeMaskapai}"> </option>
                     </select>
-                </div>
-                <div class="col-5">
-                    <label><b>Pilih Nama Sekolah :</b></label>
-                    <select class="form-control" name="idAkademi">
-                        <option value="" selected>Pilih Sekolah</option>
-                            <option th:each="akademi : ${listAkademi}"
-                                th:value="${akademi.idAkademi}"
-                                th:selected="${akademiModel.idAkademi == akademi.idAkademi}"
-                                th:text="${akademi.namaAkademi}"> </option>
-                    </select>
+                    <br>
+                    <div class = "d-flex justify-content-center">
+                        <button class = "btn btn-primary" type = "submit" value="Submit">Submit</button>
+                    </div>
                 </div>
             </div>
-            <button class = "btn btn-primary" type = "submit" value="Submit">Submit</a>
         </form>
     </div>
 
@@ -48,13 +41,14 @@
     <br>
     <br>
     <div class = container>
-        <table th:if="${listPilot != null}" class = "table">
-            <h2 class = "text-center">Jadwal Bertugas</h2>
+        <table th:if="${listPilot.size()!=0}" class = "table">
+            <h2 class = "text-center">Daftar 3 Pilot Terbaik Berdasarkan Penerbangan Terbanyak</h2>
             <thead class = "bg-primary" style="color: aliceblue">
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
                         <th>NIP</th>
+                        <th>Jumlah Penerbangan</th>
                     </tr>
             </thead>
             <tbody>
@@ -62,8 +56,11 @@
                     <td th:text="${iterationStatus.count}"></td>
                     <td th:text="${pilot.getNamaPilot()}"></td>
                     <td th:text="${pilot.getNip()}"></td>
+                    <td th:text="${pilot.getListPilotPenerbanganModel().size()}"></td>
                 </tr>
             </tbody>
         </table>
+        <h2 class = "text-center">Maskapai belum ini memiliki Pilot yang telah bertugas</h2>
+    </div>
 </body>
 </html>
