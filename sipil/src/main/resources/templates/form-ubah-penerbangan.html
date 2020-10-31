@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Edit Penerbangan</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <br>
+    <div class = "card">
+        <div class= "card-header" style = "width: 50%; margin: auto;">
+            <h1 class = "text-center">Ubah Penerbangan</h1>
+        </div>
+        <div class= "card-body">
+            <div class = "container">
+                <div class= "row justify-content-center">
+                    <div class= "col-5">
+                        <form th:action="@{/penerbangan/ubah}" th:object="${penerbangan}" method="POST">
+                            <input type="hidden" name = "idPenerbangan" th:field="*{idPenerbangan}" th:value="*{idPenerbangan}"/>
+                            <div class="form-group">
+                                <label for="formKode">Kode :</label>
+                                <input type="text" name = "kodePenerbangan" th:value="${penerbangan.kodePenerbangan}" class="form-control" placeholder="Masukkan Kode Penerbangan" th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="formWaktu">Waktu :</label>
+                                <input type="datetime-local" name = "waktuPenerbangan" th:value="${penerbangan.waktuPenerbangan}" class="form-control" placeholder="Masukkan Waktu Penerbangan" th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="formKotaAsal">Kota Asal :</label>
+                                <input class="form-control" name = "kotaAsalPenerbangan" type="text" th:value="${penerbangan.kotaAsalPenerbangan}" placeholder="Masukkan Kota Asal Penerbangan" th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="formKotaTujuan">Kota Tujuan :</label>
+                                <input class="form-control" name = "kotaTujuanPenerbangan" type="text" th:value="${penerbangan.kotaTujuanPenerbangan}" placeholder="Masukkan Kota Asal Penerbangan" th:required="required"/>
+                            </div>
+                            <button class = "btn btn-outline-success" type="submit" value="Submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

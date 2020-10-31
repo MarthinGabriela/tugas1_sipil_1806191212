@@ -3,6 +3,7 @@ package apap.tugas.sipil.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,18 +22,20 @@ public class PenerbanganModel implements Serializable {
     private String kodePenerbangan;
 
     @NotNull
-    @Column(name = "kode_penerbangan")
+    @Column(name = "kota_asal_penerbangan")
     private String kotaAsalPenerbangan;
 
     @NotNull
-    @Column(name = "kode_penerbangan")
+    @Column(name = "kode_tujuan_penerbangan")
     private String kotaTujuanPenerbangan;
 
     @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "waktu_penerbangan")
     private Date waktuPenerbangan;
 
-    @OneToMany(mappedBy = "PilotPenerbanganModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "penerbanganModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PilotPenerbanganModel> listPilotPenerbanganModel;
 
     public Long getIdPenerbangan() {

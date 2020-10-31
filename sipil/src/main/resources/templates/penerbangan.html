@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Penerbangan</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar(current='Home')"></nav>
+
+    <div class="container-fluid">
+
+        <br>
+        <br>
+        <br>
+        <a th:href="@{/penerbangan/add}" class="btn btn-primary">Tambah Penerbangan</a>
+        <br>
+        <br>
+
+        <section>
+            <table class = "table">
+                <h1 class = "text-center">Daftar Penerbangan</h2>
+                <br>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode Penerbangan</th>
+                        <th>Waktu</th>
+                        <th>Kota Asal</th>
+                        <th>Kota Tujuan</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="penerbangan, iterationStatus : ${listPenerbangan}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${penerbangan.kodePenerbangan}"></td>
+                        <td th:text="${penerbangan.waktuPenerbangan}"></td>
+                        <td th:text="${penerbangan.kotaAsalPenerbangan}"></td>
+                        <td th:text="${penerbangan.kotaTujuanPenerbangan}"></td>
+                        <td>
+                            <a th:href="@{/penerbangan/detail/} + ${penerbangan.idPenerbangan}" class="btn btn-primary">Lihat</a>
+                            <a th:href="@{/penerbangan/ubah/} + ${penerbangan.idPenerbangan}" class="btn btn-outline-primary">Ubah</a>
+                            <a th:href="@{/penerbangan/delete/} + ${penerbangan.idPenerbangan}" class="btn btn-outline-danger">Hapus</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>

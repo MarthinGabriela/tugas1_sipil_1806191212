@@ -8,4 +8,5 @@ import java.util.Optional;
 @Repository
 public interface MaskapaiDb extends JpaRepository<MaskapaiModel, Long>{
     Optional<MaskapaiModel> findByIdMaskapai(Long idMaskapai);
+    Optional<MaskapaiModel> findByKodeMaskapai(String kodeMaskapai);
 }

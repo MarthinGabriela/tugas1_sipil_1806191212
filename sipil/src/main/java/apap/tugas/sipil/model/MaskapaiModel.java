@@ -18,11 +18,11 @@ public class MaskapaiModel implements Serializable {
     private String namaMaskapai;
 
     @NotNull
-    @Column(name = "lokasi_maskapai")
-    private String lokasiMaskapai;
+    @Column(name = "kode_maskapai")
+    private String kodeMaskapai;
 
-    @OneToMany(mappedBy = "PilotModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PilotModel> listPilotModels;
+    @OneToMany(mappedBy = "maskapaiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PilotModel> listPilotModel;
 
     public Long getIdMaskapai() {
         return this.idMaskapai;
@@ -36,19 +36,19 @@ public class MaskapaiModel implements Serializable {
         this.namaMaskapai = namaMaskapai;
     }
 
-    public String getLokasiMaskapai() {
-        return this.lokasiMaskapai;
+    public String getKodeMaskapai() {
+        return this.kodeMaskapai;
     }
 
-    public void setLokasiMaskapai(String lokasiMaskapai) {
-        this.lokasiMaskapai = lokasiMaskapai;
+    public void setKodeMaskapai(String kodeMaskapai) {
+        this.kodeMaskapai = kodeMaskapai;
     }
 
-    public List<PilotModel> getListPilotModels() {
-        return this.listPilotModels;
+    public List<PilotModel> getListPilotModel() {
+        return this.listPilotModel;
     }
 
-    public void addListPilotModels(PilotModel pilotModel){
-        this.listPilotModels.add(pilotModel);
+    public void addListPilotModel(PilotModel pilotModel){
+        this.listPilotModel.add(pilotModel);
     }
 }

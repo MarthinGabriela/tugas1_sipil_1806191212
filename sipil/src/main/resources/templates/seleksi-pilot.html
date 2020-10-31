@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pilot</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar(current='Home')"></nav>
+
+    <div class = container>
+        <form th:action ="@{/cari/pilot}" class="form-group-inline" method="GET">
+            <div class ="row justify-content-center">
+                <div class="col-5">
+                    <label><b>Pilih Kode Maskapai :</b></label>
+                    <select class="form-control" name="idMaskapai" required>
+                        <option value="" disabled selected>Pilih Maskapai</option>
+                            <option th:each="maskapai : ${listMaskapai}"
+                                th:value="${maskapai.idMaskapai}"
+                                th:selected="${maskapaiModel.idMaskapai == maskapai.idMaskapai}"
+                                th:text="${maskapai.kodeMaskapai}"> </option>
+                    </select>
+                </div>
+                <div class="col-5">
+                    <label><b>Pilih Nama Sekolah :</b></label>
+                    <select class="form-control" name="idAkademi" required>
+                        <option value="" disabled selected>Pilih Sekolah</option>
+                            <option th:each="akademi : ${listAkademi}"
+                                th:value="${akademi.idAkademi}"
+                                th:selected="${akademiModel.idAkademi == akademi.idAkademi}"
+                                th:text="${akademi.idAkademi}"> </option>
+                    </select>
+                </div>
+            </div>
+            <button class = "btn btn-primary" type = "submit" value="Submit">Tambah</a>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div class = container>
+        <table th:if="${listPilotPenerbangan.size() != 0}" class = "table">
+            <h2 class = "text-center">Jadwal Bertugas</h2>
+            <thead class = "bg-primary" style="color: aliceblue">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>NIP</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Action</th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pilotpenerbangan, iterationStatus : ${listPilotPenerbangan}">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getNamaPilot()}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getNip()}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getTanggalLahir()}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getTempatLahir()}"></td>
+                    <td th:if="${pilotpenerbangan.pilotModel.getJenisKelamin() == 1}">Laki-laki</td>
+                    <td th:if="${pilotpenerbangan.pilotModel.getJenisKelamin() == 2}">Perempuan</td>
+                    <td>
+                        <a th:href="@{/pilotpenerbangan/} + ${pilotpenerbangan.idPilotPenerbangan}" class="btn btn-primary">Lihat</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+        <h3 class="text-center " th:if="${listPilotPenerbangan.size() == 0}">
+            Penerbangan ini belum memiliki <br> pilot
+        </h3>
+
+</body>
+</html>

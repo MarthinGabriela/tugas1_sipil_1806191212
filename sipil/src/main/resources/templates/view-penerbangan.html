@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lihat Penerbangan</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar(current='Home')"></nav>
+    <br>
+    <br>
+    <div class = "card">
+        <div class= "card-header bg-primary" style = "width: 50%; margin: auto;">
+            <h1 class = "text-center" style="color: aliceblue;">Detail Penerbangan</h1>
+        </div>
+        <div class= "card-body">
+            <div class = "container">
+                <div class= "row justify-content-center">
+                    <div class= "col-5">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Id Penerbangan</p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text = "${penerbangan.idPenerbangan}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Kode Penerbangan</p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text = "${penerbangan.kodePenerbangan}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Waktu</p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text = "${penerbangan.waktuPenerbangan}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Kota Asal</p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text = "${penerbangan.kotaAsalPenerbangan}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Kota Tujuan</p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text = "${penerbangan.kotaTujuanPenerbangan}"></p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class = "float-sm-right">
+                                    <a th:href="@{/penerbangan/ubah/} + ${penerbangan.idPenerbangan}" class="btn btn-outline-primary">Ubah</a>
+                                    <a th:href="@{/penerbangan/delete/} + ${penerbangan.idPenerbangan}" class="btn btn-outline-danger">Hapus</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class = container>
+        <label><b>Nama Pilot :</b></label>
+        <form th:action = "@{/penerbangan/}+${idPenerbangan}+@{/pilot/tambah}" th:object = "${pilotPenerbangan}" class="form-group-inline" method="POST">
+            <input type="hidden" name="PenerbanganModel" th:value="${penerbangan.idPenerbangan}">
+            <select class="form-control" name="PilotModel" required>
+                <option value="" disabled selected>Pilih Pilot</option>
+                    <option th:each="pilot : ${listPilot}"
+                        th:value="${pilot.idPilot}"
+                        th:text="${pilot.namaPilot}"> </option>
+            </select>
+            <button class = "btn btn-primary" type = "submit" value="Submit">Tambah</a>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div class = container>
+        <table th:if="${listPilotPenerbangan.size() != 0}" class = "table">
+            <h2 class = "text-center">Jadwal Bertugas</h2>
+            <thead class = "bg-primary" style="color: aliceblue">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>NIP</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Action</th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pilotpenerbangan, iterationStatus : ${listPilotPenerbangan}">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getNamaPilot()}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getNip()}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getTanggalLahir()}"></td>
+                    <td th:text="${pilotpenerbangan.pilotModel.getTempatLahir()}"></td>
+                    <td th:if="${pilotpenerbangan.pilotModel.getJenisKelamin() == 1}">Laki-laki</td>
+                    <td th:if="${pilotpenerbangan.pilotModel.getJenisKelamin() == 2}">Perempuan</td>
+                    <td>
+                        <a th:href="@{/pilotpenerbangan/} + ${pilotpenerbangan.idPilotPenerbangan}" class="btn btn-primary">Lihat</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+        <h3 class="text-center " th:if="${listPilotPenerbangan.size() == 0}">
+            Penerbangan ini belum memiliki <br> pilot
+        </h3>
+    </div>
+</body>
+</html>

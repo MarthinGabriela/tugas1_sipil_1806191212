@@ -1,7 +1,9 @@
 package apap.tugas.sipil.service;
 
+import java.util.List;
 import apap.tugas.sipil.model.AkademiModel;
 
 public interface AkademiService {
-    void addAkademi(AkademiModel akademiModel);
+    List<AkademiModel> getAllAkademi();
+    AkademiModel getByIdAkademi(Long id);
 }

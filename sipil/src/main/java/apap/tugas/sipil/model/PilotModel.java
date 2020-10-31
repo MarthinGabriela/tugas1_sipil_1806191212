@@ -3,6 +3,7 @@ package apap.tugas.sipil.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +33,8 @@ public class PilotModel implements Serializable {
     private String nik;
 
     @NotNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "tanggal_lahir_pilot")
     private Date tanggalLahir;
 
@@ -43,7 +46,7 @@ public class PilotModel implements Serializable {
     @Column(name = "jenis_kelamin_pilot")
     private Integer jenisKelamin;
 
-    @OneToMany(mappedBy = "PilotPenerbanganModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pilotModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PilotPenerbanganModel> listPilotPenerbanganModel;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -58,6 +61,10 @@ public class PilotModel implements Serializable {
     @JsonIgnore
     private AkademiModel akademiModel;
 
+    public void setIdPilot(Long id) {
+        this.idPilot = id;
+    }
+    
     public Long getIdPilot() {
         return this.idPilot;
     }

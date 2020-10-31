@@ -6,6 +6,8 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
+@Table(name = "akademi")
 public class AkademiModel implements Serializable {
     @Id
     @Column(name = "id_akademi")
@@ -22,8 +24,8 @@ public class AkademiModel implements Serializable {
     @Column(name = "lokasi_akademi")
     private String lokasiAkademi;
 
-    @OneToMany(mappedBy = "PilotModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PilotModel> listPilotModels;
+    @OneToMany(mappedBy = "akademiModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PilotModel> listPilotModel;
 
     public Long getIdAkademi() {
         return this.idAkademi;
@@ -45,11 +47,11 @@ public class AkademiModel implements Serializable {
         this.lokasiAkademi = lokasiAkademi;
     }
 
-    public List<PilotModel> getListPilotModels(){
-        return this.listPilotModels;
+    public List<PilotModel> getListPilotModel(){
+        return this.listPilotModel;
     }
 
-    public void addListPilotModels(PilotModel pilotModel){
-        this.listPilotModels.add(pilotModel);
+    public void addListPilotModel(PilotModel pilotModel){
+        this.listPilotModel.add(pilotModel);
     }
 }

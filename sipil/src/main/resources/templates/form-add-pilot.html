@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tambah Pilot</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <br>
+    <div class = "card">
+        <div class= "card-header" style = "width: 50%; margin: auto;">
+            <h1 class = "text-center">Tambah Pilot</h1>
+        </div>
+        <div class= "card-body">
+            <div class = "container">
+                <div class= "row justify-content-center">
+                    <div class= "col-5">
+                        <form th:action="@{/pilot/add}" th:object="${pilot}" method="POST">
+                            <div class="form-group">
+                                <label for="formNama">Nama :</label>
+                                <input type="text" th:field="${pilot.namaPilot}" class="form-control" placeholder="Masukkan Nama Pilot" th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="formNik">NIK :</label>
+                                <input type="text" th:field="${pilot.nik}" class="form-control" placeholder="Masukkan NIK Pilot" th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="formTempatLahir">Tempat Lahir :</label>
+                                <input type="text" th:field="${pilot.tempatLahir}" class="form-control" placeholder="Masukkan Tempat Lahir Pilot" th:required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="formTanggal">Tanggal Lahir :</label>
+                                <input class="form-control" type="date" th:field="${pilot.tanggalLahir}" th:required="required"/>
+                            </div>
+                            <div class = "form-group">
+                                <label for="formJenisKelamin">Jenis Kelamin :</label>
+                                <select th:field="${pilot.jenisKelamin}" class="form-control" required>
+                                    <option value = "" disabled selected>Pilih Jenis Kelamin</option>
+                                    <option value = "1">Laki-laki</option>
+                                    <option value = "2">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="formMaskapai">Maskapai :</label>
+                                <select class="form-control" th:field="${pilot.maskapaiModel}" aria-placeholder="Pilih Maskapai" required>
+                                    <option value="" disabled selected>Pilih Maskapai</option>
+                                        <option th:each="maskapai : ${listMaskapai}"
+                                            th:value="${maskapai.idMaskapai}"
+                                            th:text="${maskapai.namaMaskapai}"> </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="formAkademi">Akademi :</label>
+                                <select class="form-control" th:field="${pilot.akademiModel}" required>
+                                    <option value="" disabled selected>Pilih Akademi</option>
+                                        <option th:each="akademi : ${listAkademi}"
+                                            th:value="${akademi.idAkademi}"
+                                            th:text="${akademi.namaAkademi}"> </option>
+                                </select>
+                            </div>
+
+                            <button class = "btn btn-outline-success" type="submit" value="Submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
