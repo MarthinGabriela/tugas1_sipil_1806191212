@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sukses Mengubah Pilot</title>
+    <title>Sukses Menambahkan Pilot</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -12,23 +12,9 @@
 </head>
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
-
-    <div class="container-fluid">
-        <div class=card-body>
-            <div class="jumbotron jumbotron-custom bg-primary">
-                <h2 class = "text-center" th:text="'Pilot dengan Id ' + ${idPilot}" style = "color: aliceblue;"></h2>
-                <h2 class = "text-center" style = "color: aliceblue;"> berhasil diubah.</h2>
-
-                <a th:href="@{/}" class="btn btn-success">Kembali</a>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid">
+    <h2>Halaman tidak ditemukan</h2>
+    <a th:href="@{/}">Kembali ke home</a>
+</div>
 </body>
-<style>
-    .jumbotron-custom{
-        width: 60%;
-        height: 30%;
-        margin-top: 10%;
-        margin-left: 20%;
-    }
-</style>
+</html>

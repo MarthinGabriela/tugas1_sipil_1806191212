@@ -28,6 +28,11 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/cari")
+    public String getCariPage(Model model) {
+        return "cari";
+    }
+
     @RequestMapping(value="/cari/pilot")
     public String seleksiPilot(
         @RequestParam(value = "idAkademi", required=false) Long idAkademi,
@@ -90,5 +95,43 @@ public class MainController {
         model.addAttribute("maskapaiModel", maskapaiModel);
 
         return "topTigaPilot";
+    }
+
+    @GetMapping(value = "/cari/pilot/penerbanganterbanyak")
+    public String cariTigaPilotAwal(
+        Model model
+    ) {
+        List<MaskapaiModel> listMaskapai = maskapaiService.getAllMaskapai();
+
+        List<PilotModel> listPilot = null;
+        MaskapaiModel maskapaiModel =new MaskapaiModel();
+
+        try {
+            maskapaiModel = maskapaiService.getAllMaskapai().get(0);
+            listPilot = pilotService.get3Pilots(maskapaiModel);
+        } catch (Exception e) {
+            
+        }
+
+        model.addAttribute("listPilot", listPilot);
+        model.addAttribute("listMaskapai", listMaskapai);
+        model.addAttribute("maskapaiModel", maskapaiModel);
+
+        return "topTigaPilot";
+    }
+
+    @GetMapping("/cari/pilot/bulan/ini")
+    public String cariPilotBulanIni(Model model) {
+
+        List<PilotModel> listPilot = null;
+        try{
+            listPilot = pilotService.getThisMonthPilot();
+        } catch (Exception e) {
+
+        }
+
+        model.addAttribute("listPilot", listPilot);
+
+        return "bonus";
     }
 }

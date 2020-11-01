@@ -9,6 +9,8 @@ import apap.tugas.sipil.repository.PilotDb;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Random;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -98,16 +100,27 @@ public class PilotServiceImpl implements PilotService {
     public List<PilotModel> getPilotMaskapaiModelAndAkademiModel(MaskapaiModel maskapaiModel, AkademiModel akademiModel) {
         return pilotDb.findByMaskapaiModelAndAkademiModel(maskapaiModel, akademiModel);
     }
+
     @Override
     public List<PilotModel> getPilotMaskapaiModel(MaskapaiModel maskapaiModel) {
         return pilotDb.findByMaskapaiModel(maskapaiModel);
     }
+
     @Override
     public List<PilotModel> getPilotAkademiModel(AkademiModel akademiModel) {
         return pilotDb.findByAkademiModel(akademiModel);
     }
+
     @Override
     public List<PilotModel> get3Pilots(MaskapaiModel maskapai){
         return pilotDb.find3Pilots(maskapai);
+    }
+
+    @Override
+    public List<PilotModel> getThisMonthPilot(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        Date tanggal = cal.getTime();
+        return pilotDb.findByThisMonth(tanggal);
     }
 }

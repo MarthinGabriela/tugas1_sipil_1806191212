@@ -105,7 +105,6 @@
                         <th>Tempat Lahir</th>
                         <th>Tanggal Lahir</th>
                         <th>Jenis Kelamin</th>
-                        <th>Action</th>
                     </tr>
             </thead>
             <tbody>
@@ -117,9 +116,6 @@
                     <td th:text="${pilotpenerbangan.pilotModel.getTempatLahir()}"></td>
                     <td th:if="${pilotpenerbangan.pilotModel.getJenisKelamin() == 1}">Laki-laki</td>
                     <td th:if="${pilotpenerbangan.pilotModel.getJenisKelamin() == 2}">Perempuan</td>
-                    <td>
-                        <a th:href="@{/pilotpenerbangan/} + ${pilotpenerbangan.idPilotPenerbangan}" class="btn btn-primary">Lihat</a>
-                    </td>
                 </tr>
             </tbody>
         </table>

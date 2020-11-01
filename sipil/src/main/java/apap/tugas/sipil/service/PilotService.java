@@ -16,4 +16,5 @@ public interface PilotService {
     List<PilotModel> getPilotMaskapaiModelAndAkademiModel(MaskapaiModel maskapaiModel, AkademiModel akademiModel);
     List<PilotModel> getPilotMaskapaiModel(MaskapaiModel maskapaiModel);
     List<PilotModel> getPilotAkademiModel(AkademiModel akademiModel);
+    List<PilotModel> getThisMonthPilot();
 }

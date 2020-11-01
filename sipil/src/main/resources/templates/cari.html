@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <object th:include="fragments/navbar :: css" th:remove="tag"></object>
+    <object th:include="fragments/navbar :: js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <div class="col-lg-8 mx-auto">
+        <div class="mb-4">
+            <hr class="solid">
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row row-custom">
+            <div class="mb-4 leftdivide">
+                <a th:href="@{/cari/pilot}" class="btn btn-primary btn-custom">
+                    <h5>
+                        Cari Berdasarkan Maskapai dan Nama Sekolah
+                    </h5>
+                </a>
+            </div>
+            <div class="mb-4 leftdivide">
+                <a th:href="@{/cari/pilot/penerbanganterbanyak}" class="btn btn-primary btn-custom">
+                    <h5>
+                        Cari 3 Pilot Terbaik di Maskapai
+                    </h5>
+                </a>
+            </div>
+            <div class="mb-4 leftdivide">
+                <a th:href="@{/cari/pilot/bulan/ini}" class="btn btn-primary btn-custom">
+                    <h5>
+                        Daftar Pilot yang Terbang dalam 1 Bulan Terakhir
+                    </h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    .jumbotron-custom{
+        width: 60%;
+        height: 30%;
+        margin-top: 10%;
+        margin-left: 20%;
+    }
+    hr.solid {
+        border-top: 2px solid #999;
+    }
+    .leftdivide{
+        margin-left: 10%;
+    }
+    .row-custom{
+        width: 65%;
+        height: 30%;
+        margin-left: 10%;
+        padding-left: 10%;
+    }
+    .btn-custom{
+        width: 150px;
+    }
+</style>
+</html>
